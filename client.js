@@ -1,8 +1,9 @@
 
-/* globals io */
-
 const socket = io('http://localhost:8080');
-socket.on('news', function (data) {
+socket.on('init', function (data) {
   console.log(data);
-  socket.emit('my other event', { my: 'data' });
+});
+
+socket.on('tweet', (data) => {
+  console.log(data);
 });

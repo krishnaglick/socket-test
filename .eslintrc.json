@@ -9,7 +9,7 @@
     "ecmaVersion": 8
   },
   "globals": {
-    "$": true
+    "io": true
   },
   "extends": ["eslint:recommended"],
   "parser": "babel-eslint",
@@ -24,6 +24,9 @@
     ],
     "strict": "off",
     "no-console": "off",
-    "require-yield": "off"
+    "no-empty": "off",
+    "require-yield": "off",
+    "no-var": "error",
+    "prefer-const": "error"
   }
 }
