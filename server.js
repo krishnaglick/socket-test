@@ -6,18 +6,21 @@ const fs = require('fs');
 const path = require('path');
 const twitter = require('./twitter');
 
+const trackings = ['Lv 75', 'Lvl 75', 'Celeste Omega'];
 const sockets = [];
 
 io.on('connection', function (socket) {
   socket.emit('init', { hello: 'world' });
   sockets.push(socket);
 });
-twitter.stream('statuses/filter', { track: 'Celeste Omega' }, (stream) => {
-  stream.on('error', console.error);
-  stream.on('data', (event) => {
-    console.log(event);
-    const tweet = { tweet: event.text };
-    sockets.forEach(socket => socket.volatile.emit('tweet', tweet));
+trackings.forEach((track) => {
+  twitter.stream('statuses/filter', { track }, (stream) => {
+    stream.on('error', console.error);
+    stream.on('data', (event) => {
+      const tweet = { tweet: event.text };
+      console.log(event.text);
+      sockets.forEach(socket => socket.volatile.emit('tweet', tweet));
+    });
   });
 });
 
